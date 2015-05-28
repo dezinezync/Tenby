@@ -41,9 +41,54 @@
 
 @end
 
+@interface NSArray (Dosa)
+
+- (NSDictionary *)dz_flattenToDictionaryWithParentKey:(NSString *)parentKey;
+
+@end
+
 @interface NSDictionary (Dosa)
 
 - (NSDictionary *)dz_flatten;
+- (NSDictionary *)dz_flattenWithParent:(NSDictionary *)parent parentKey:(NSString *)parentKey;
+
+@end
+
+@implementation NSArray (Dosa)
+
+- (NSDictionary *)dz_flattenToDictionaryWithParentKey:(NSString *)parentKey
+{
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        NSString *composedKey = [NSString stringWithFormat:@"%@_%@", parentKey?:@"", @(idx)];
+        
+        if([obj isKindOfClass:[NSDictionary class]])
+        {
+            NSDictionary *aDict = [(NSDictionary *)obj dz_flattenWithParent:nil parentKey:[composedKey stringByAppendingString:@"_"]];
+            
+            [dict addEntriesFromDictionary:aDict];
+        }
+        else if([obj isKindOfClass:[NSArray class]])
+        {
+            
+            NSDictionary *aDict = [obj dz_flattenToDictionaryWithParentKey:composedKey];
+            
+            [dict addEntriesFromDictionary:aDict];
+            
+        }
+        else
+        {
+            [dict setObject:obj forKey:composedKey];
+        }
+        
+    }];
+    
+    return [dict copy];
+    
+}
 
 @end
 
@@ -65,6 +110,13 @@
         {
             NSDictionary *aDict = [(NSDictionary *)obj dz_flattenWithParent:self parentKey:key];
             [dict addEntriesFromDictionary:aDict];
+        }
+        else if([obj isKindOfClass:[NSArray class]])
+        {
+            
+            NSDictionary *aDict = [(NSArray *)obj dz_flattenToDictionaryWithParentKey:key];
+            [dict addEntriesFromDictionary:aDict];
+            
         }
         else
         {
@@ -157,9 +209,6 @@
     if(!delimiter) delimiter = @",";
     if(!eol) eol = @"\n";
     
-    //Cleanse the incoming json object
-    aObj = [NSJSONSerialization JSONObjectWithData:[NSJSONSerialization dataWithJSONObject:aObj options:kNilOptions error:nil] options:kNilOptions error:nil];
-    
     NSString *CSV = @"";
     NSArray *fields;
     
@@ -176,7 +225,16 @@
     else if([aObj isKindOfClass:[NSArray class]])
     {
         
+        aObj = [(NSArray *)aObj dz_map:^id(NSDictionary *obj, NSUInteger idx, NSArray *array) {
+           
+            return [obj dz_flatten];
+            
+        }];
+        
         NSArray *columns = [[self class] columnTitlesForArray:aObj];
+        // sort the column names alphabetically.
+        columns = [columns sortedArrayUsingSelector:@selector(localizedCompare:)];
+        
         NSArray *rows = [[self class] rowsForColumns:columns fromArray:aObj];
         
         NSArray *serializedRows = [rows dz_map:^id(NSArray *obj, NSUInteger idx, NSArray *array) {
@@ -297,9 +355,7 @@
         
         if(![obj isKindOfClass:[NSDictionary class]]) continue; //only accept a Dictionary.
         
-        NSDictionary *aDict = [obj dz_flatten];
-        
-        NSArray *keys = [aDict allKeys];
+        NSArray *keys = [obj allKeys];
         
         // create an ordered copy of the keys.
         NSMutableOrderedSet *newFields = [NSMutableOrderedSet orderedSetWithArray:keys];
@@ -329,21 +385,37 @@
     if(!columns || ![columns count]) return nil;
     if(!arr || ![arr count]) return nil;
     
-    NSMutableArray *rows = [NSMutableArray arrayWithCapacity:[arr count]];
+    NSMutableOrderedSet *rows = [NSMutableOrderedSet orderedSetWithCapacity:[arr count]];
     
     // loop over all items and create a formatted row
     for(NSDictionary *obj in arr)
     {
-        
-        NSDictionary *aDict = [obj dz_flatten];
         
         NSMutableArray *row = [NSMutableArray arrayWithCapacity:[columns count]];
         
         // Loop over all column titles and fetch the individual values.
         for(NSString *key in columns)
         {
+            
+            NSString *val = [obj valueForKey:key]?:@"";
+            
+            if([val isKindOfClass:[NSDate class]])
+            {
+                val = [NSDateFormatter localizedStringFromDate:(NSDate *)val dateStyle:NSDateFormatterFullStyle timeStyle:NSDateFormatterFullStyle];
+            }
+            if([val isKindOfClass:[NSNumber class]])
+            {
+                val = [(NSNumber *)val stringValue];
+            }
+            
+            if((val && [val length]) &&
+               ([val containsString:@"\""] || [val containsString:@"\'"] || [val containsString:@","] || [val containsString:@"\n"]))
+            {
+                val = [NSString stringWithFormat:@"\"%@\"",val];
+            }
+            
             // sometimes, a particular object may not have a key. We need to subtitute with a blank value.
-            [row addObject:[aDict valueForKey:key]?:@""];
+            [row addObject:val];
             
         }
         
@@ -351,7 +423,7 @@
         
     }
     
-    return [rows copy];
+    return [rows array];
     
 }
 

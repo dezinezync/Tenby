@@ -29,8 +29,8 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
     
     _jsonArray = @[@{@"car":@"Audi",@"price":@40000,@"color":@"blue"},
-                   @{@"car":@"BMW",@"price":@35000,@"color":@"black"},
-                   @{@"car":@"Porsche",@"color":@"green", @"price": @{@"showroom": @41000, @"onroad" : @43250}}];
+                   @{@"car":@"BMW",@"price":@[@{@"showroom": @41000, @"onroad" : @43250}, @{@"showroom": @35000, @"onroad" : @42000}],@"color":@"black"},
+                   @{@"car":@"Porsche",@"price": @{@"showroom": @41000, @"onroad" : @43250},@"color":@"green"}];
     
     _jsonObject = @{@"car":@"Porsche",@"price":@60000,@"color":@"green"};
     
@@ -51,7 +51,7 @@
     NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray];
     
     NSString *expectedObjOutput = @"car,price,color\nPorsche,60000,green";
-    NSString *expectedArrOutput = @"car,price,color,priceShowroom,priceOnroad\nAudi,40000,blue,,\nBMW,35000,black,,\nPorsche,,green,41000,43250";
+    NSString *expectedArrOutput = @"car,color,price,price_0_Onroad,price_0_Showroom,price_1_Onroad,price_1_Showroom,priceOnroad,priceShowroom\nAudi,blue,40000,,,,,,\nBMW,black,,43250,41000,42000,35000,,\nPorsche,green,,,,,,43250,41000";
     
     XCTAssert([objCSV isEqualToString:expectedObjOutput]);
     XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
@@ -65,7 +65,7 @@
     NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray delimiter:@"\t"];
     
     NSString *expectedObjOutput = @"car\tprice\tcolor\nPorsche\t60000\tgreen";
-    NSString *expectedArrOutput = @"car\tprice\tcolor\tpriceShowroom\tpriceOnroad\nAudi\t40000\tblue\t\t\nBMW\t35000\tblack\t\t\nPorsche\t\tgreen\t41000\t43250";
+    NSString *expectedArrOutput = @"car\tcolor\tprice\tprice_0_Onroad\tprice_0_Showroom\tprice_1_Onroad\tprice_1_Showroom\tpriceOnroad\tpriceShowroom\nAudi\tblue\t40000\t\t\t\t\t\t\nBMW\tblack\t\t43250\t41000\t42000\t35000\t\t\nPorsche\tgreen\t\t\t\t\t\t43250\t41000";
     
     XCTAssert([objCSV isEqualToString:expectedObjOutput]);
     XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
@@ -79,7 +79,7 @@
     NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray delimiter:@"\t" endOfLine:@"\n\n"];
     
     NSString *expectedObjOutput = @"car\tprice\tcolor\n\nPorsche\t60000\tgreen";
-    NSString *expectedArrOutput = @"car\tprice\tcolor\tpriceShowroom\tpriceOnroad\n\nAudi\t40000\tblue\t\t\n\nBMW\t35000\tblack\t\t\n\nPorsche\t\tgreen\t41000\t43250";
+    NSString *expectedArrOutput = @"car\tcolor\tprice\tprice_0_Onroad\tprice_0_Showroom\tprice_1_Onroad\tprice_1_Showroom\tpriceOnroad\tpriceShowroom\n\nAudi\tblue\t40000\t\t\t\t\t\t\n\nBMW\tblack\t\t43250\t41000\t42000\t35000\t\t\n\nPorsche\tgreen\t\t\t\t\t\t43250\t41000";
     
     XCTAssert([objCSV isEqualToString:expectedObjOutput]);
     XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
@@ -146,6 +146,28 @@
     NSURL *normalDelimitedAndEOL = [Tenby JSONFromCSV:_csv delimiter:@"\t" endOfLine:@"\n\n"];
     
     XCTAssert(normal && normalDelimited && normalDelimitedAndEOL);
+    
+}
+
+- (void)testPerformanceCSVToJSON
+{
+    
+    [self measureBlock:^{
+       
+        __unused NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray delimiter:@"\t" endOfLine:@"\n\n"];
+        
+    }];
+    
+}
+
+- (void)testPerformanceJSONToCSV
+{
+ 
+    [self measureBlock:^{
+       
+        __unused NSArray *JSON = [Tenby JSONFromCSVString:_csv];
+        
+    }];
     
 }
 
