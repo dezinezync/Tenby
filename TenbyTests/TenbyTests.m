@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface TenbyTests : XCTestCase
+#import "Tenby.h"
+
+@interface TenbyTests : XCTestCase {
+    
+    NSArray *_jsonArray;
+    NSDictionary *_jsonObject;
+    NSString *_csv;
+    NSString *_csvSingle;
+    
+}
 
 @end
 
@@ -18,6 +27,16 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    _jsonArray = @[@{@"car":@"Audi",@"price":@40000,@"color":@"blue"},
+                   @{@"car":@"BMW",@"price":@35000,@"color":@"black"},
+                   @{@"car":@"Porsche",@"color":@"green"}];
+    
+    _jsonObject = @{@"car":@"Porsche",@"price":@60000,@"color":@"green"};
+    
+    _csv = @"car,price,color\nAudi,40000,blue\nBMW,35000,black\nPorsche,,green";
+    _csvSingle = @"car,price,color\nAudi,40000,blue";
+    
 }
 
 - (void)tearDown {
@@ -25,16 +44,109 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+- (void)testJSONToCSV
+{
+    
+    NSString *objCSV = [Tenby CSVStringFromJSON:_jsonObject];
+    NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray];
+    
+    NSString *expectedObjOutput = @"car,price,color\nPorsche,60000,green";
+    NSString *expectedArrOutput = @"car,price,color\nAudi,40000,blue\nBMW,35000,black\nPorsche,,green";
+    
+    XCTAssert([objCSV isEqualToString:expectedObjOutput]);
+    XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
+    
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testJSONToCSVWithDelimiter
+{
+    
+    NSString *objCSV = [Tenby CSVStringFromJSON:_jsonObject delimiter:@"\t"];
+    NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray delimiter:@"\t"];
+    
+    NSString *expectedObjOutput = @"car\tprice\tcolor\nPorsche\t60000\tgreen";
+    NSString *expectedArrOutput = @"car\tprice\tcolor\nAudi\t40000\tblue\nBMW\t35000\tblack\nPorsche\t\tgreen";
+    
+    XCTAssert([objCSV isEqualToString:expectedObjOutput]);
+    XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
+    
+}
+
+- (void)testJSONToCSVWithDelimiterAndEOL
+{
+    
+    NSString *objCSV = [Tenby CSVStringFromJSON:_jsonObject delimiter:@"\t" endOfLine:@"\n\n"];
+    NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray delimiter:@"\t" endOfLine:@"\n\n"];
+    
+    NSString *expectedObjOutput = @"car\tprice\tcolor\n\nPorsche\t60000\tgreen";
+    NSString *expectedArrOutput = @"car\tprice\tcolor\n\nAudi\t40000\tblue\n\nBMW\t35000\tblack\n\nPorsche\t\tgreen";
+    
+    XCTAssert([objCSV isEqualToString:expectedObjOutput]);
+    XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
+    
+}
+
+- (void)testCSVToJSON
+{
+    
+    NSArray *JSON = [Tenby JSONFromCSVString:_csv];
+    NSArray *JSONSingle = [Tenby JSONFromCSVString:_csvSingle];
+    
+    XCTAssert([JSON count] == 3);
+    XCTAssert([JSONSingle count] == 1);
+    
+}
+
+- (void)testCSVToJSONWithDelimiter
+{
+    
+    _csv = [_csv stringByReplacingOccurrencesOfString:@"," withString:@"\\s"];
+    _csvSingle = [_csvSingle stringByReplacingOccurrencesOfString:@"," withString:@"\\s"];
+    
+    NSArray *JSON = [Tenby JSONFromCSVString:_csv delimiter:@"\\s"];
+    NSArray *JSONSingle = [Tenby JSONFromCSVString:_csvSingle delimiter:@"\\s"];
+    
+    XCTAssert([JSON count] == 3);
+    XCTAssert([JSONSingle count] == 1);
+    
+}
+
+- (void)testCSVToJSONWithDelimiterAndEOL
+{
+    
+    _csv = [_csv stringByReplacingOccurrencesOfString:@"," withString:@"\\s"];
+    _csv = [_csv stringByReplacingOccurrencesOfString:@"\n" withString:@"\t"];
+    _csvSingle = [_csvSingle stringByReplacingOccurrencesOfString:@"," withString:@"\\s"];
+    _csvSingle = [_csvSingle stringByReplacingOccurrencesOfString:@"\n" withString:@"\t"];
+    
+    NSArray *JSON = [Tenby JSONFromCSVString:_csv delimiter:@"\\s" endOfLine:@"\t"];
+    NSArray *JSONSingle = [Tenby JSONFromCSVString:_csvSingle delimiter:@"\\s" endOfLine:@"\t"];
+    
+    XCTAssert([JSON count] == 3);
+    XCTAssert([JSONSingle count] == 1);
+    
+}
+
+- (void)testWritingForJSON
+{
+    
+    NSURL *normal = [Tenby CSVFromJSON:_jsonArray];
+    NSURL *normalDelimited = [Tenby CSVFromJSON:_jsonArray delimiter:@"\t"];
+    NSURL *normalDelimitedAndEOL = [Tenby CSVFromJSON:_jsonArray delimiter:@"\t" endOfLine:@"\n\n"];
+    
+    XCTAssert(normal && normalDelimited && normalDelimitedAndEOL);
+    
+}
+
+- (void)testWritingForCSV
+{
+    
+    NSURL *normal = [Tenby JSONFromCSV:_csv];
+    NSURL *normalDelimited = [Tenby JSONFromCSV:_csv delimiter:@"\t"];
+    NSURL *normalDelimitedAndEOL = [Tenby JSONFromCSV:_csv delimiter:@"\t" endOfLine:@"\n\n"];
+    
+    XCTAssert(normal && normalDelimited && normalDelimitedAndEOL);
+    
 }
 
 @end
