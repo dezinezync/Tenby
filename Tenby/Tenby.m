@@ -41,6 +41,57 @@
 
 @end
 
+@interface NSDictionary (Dosa)
+
+- (NSDictionary *)dz_flatten;
+
+@end
+
+@implementation NSDictionary (Dosa)
+
+- (NSDictionary *)dz_flatten
+{
+    return [self dz_flattenWithParent:nil parentKey:nil];
+}
+
+- (NSDictionary *)dz_flattenWithParent:(NSDictionary *)parent parentKey:(NSString *)parentKey
+{
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        
+        if([obj isKindOfClass:[NSDictionary class]])
+        {
+            NSDictionary *aDict = [(NSDictionary *)obj dz_flattenWithParent:self parentKey:key];
+            [dict addEntriesFromDictionary:aDict];
+        }
+        else
+        {
+            
+            NSString *composedKey;
+            
+            if(parentKey)
+            {
+                composedKey = [NSString stringWithFormat:@"%@%@", parentKey, [key capitalizedString]];
+            }
+            else
+            {
+                composedKey = key;
+            }
+            
+            [dict setValue:obj forKey:composedKey];
+            
+        }
+        
+    }];
+    
+    return [dict copy];
+    
+}
+
+@end
+
 @implementation Tenby
 
 + (NSArray *)JSONFromCSVString:(NSString *)csv
@@ -246,7 +297,9 @@
         
         if(![obj isKindOfClass:[NSDictionary class]]) continue; //only accept a Dictionary.
         
-        NSArray *keys = [obj allKeys];
+        NSDictionary *aDict = [obj dz_flatten];
+        
+        NSArray *keys = [aDict allKeys];
         
         // create an ordered copy of the keys.
         NSMutableOrderedSet *newFields = [NSMutableOrderedSet orderedSetWithArray:keys];
@@ -282,13 +335,15 @@
     for(NSDictionary *obj in arr)
     {
         
+        NSDictionary *aDict = [obj dz_flatten];
+        
         NSMutableArray *row = [NSMutableArray arrayWithCapacity:[columns count]];
         
         // Loop over all column titles and fetch the individual values.
         for(NSString *key in columns)
         {
             // sometimes, a particular object may not have a key. We need to subtitute with a blank value.
-            [row addObject:[obj valueForKey:key]?:@""];
+            [row addObject:[aDict valueForKey:key]?:@""];
             
         }
         

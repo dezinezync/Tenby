@@ -35,7 +35,7 @@
 		F0E432CE1B1613550036DEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0E432CF1B1613550036DEB0 /* TenbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TenbyTests.m; sourceTree = "<group>"; };
 		F0E432E31B1614800036DEB0 /* Tenby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tenby.h; path = Tenby/Tenby.h; sourceTree = "<group>"; };
-		F0E432E41B1614800036DEB0 /* Tenby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tenby.m; path = Tenby/Tenby.m; sourceTree = "<group>"; };
+		F0E432E41B1614800036DEB0 /* Tenby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tenby.m; path = Tenby/Tenby.m; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,7 +322,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -332,7 +333,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

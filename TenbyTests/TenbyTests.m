@@ -30,7 +30,7 @@
     
     _jsonArray = @[@{@"car":@"Audi",@"price":@40000,@"color":@"blue"},
                    @{@"car":@"BMW",@"price":@35000,@"color":@"black"},
-                   @{@"car":@"Porsche",@"color":@"green"}];
+                   @{@"car":@"Porsche",@"color":@"green", @"price": @{@"showroom": @41000, @"onroad" : @43250}}];
     
     _jsonObject = @{@"car":@"Porsche",@"price":@60000,@"color":@"green"};
     
@@ -51,7 +51,7 @@
     NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray];
     
     NSString *expectedObjOutput = @"car,price,color\nPorsche,60000,green";
-    NSString *expectedArrOutput = @"car,price,color\nAudi,40000,blue\nBMW,35000,black\nPorsche,,green";
+    NSString *expectedArrOutput = @"car,price,color,priceShowroom,priceOnroad\nAudi,40000,blue,,\nBMW,35000,black,,\nPorsche,,green,41000,43250";
     
     XCTAssert([objCSV isEqualToString:expectedObjOutput]);
     XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
@@ -65,7 +65,7 @@
     NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray delimiter:@"\t"];
     
     NSString *expectedObjOutput = @"car\tprice\tcolor\nPorsche\t60000\tgreen";
-    NSString *expectedArrOutput = @"car\tprice\tcolor\nAudi\t40000\tblue\nBMW\t35000\tblack\nPorsche\t\tgreen";
+    NSString *expectedArrOutput = @"car\tprice\tcolor\tpriceShowroom\tpriceOnroad\nAudi\t40000\tblue\t\t\nBMW\t35000\tblack\t\t\nPorsche\t\tgreen\t41000\t43250";
     
     XCTAssert([objCSV isEqualToString:expectedObjOutput]);
     XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
@@ -79,7 +79,7 @@
     NSString *arrCSV = [Tenby CSVStringFromJSON:_jsonArray delimiter:@"\t" endOfLine:@"\n\n"];
     
     NSString *expectedObjOutput = @"car\tprice\tcolor\n\nPorsche\t60000\tgreen";
-    NSString *expectedArrOutput = @"car\tprice\tcolor\n\nAudi\t40000\tblue\n\nBMW\t35000\tblack\n\nPorsche\t\tgreen";
+    NSString *expectedArrOutput = @"car\tprice\tcolor\tpriceShowroom\tpriceOnroad\n\nAudi\t40000\tblue\t\t\n\nBMW\t35000\tblack\t\t\n\nPorsche\t\tgreen\t41000\t43250";
     
     XCTAssert([objCSV isEqualToString:expectedObjOutput]);
     XCTAssert([arrCSV isEqualToString:expectedArrOutput]);
