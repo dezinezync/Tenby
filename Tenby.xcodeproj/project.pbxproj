@@ -10,9 +10,7 @@
 		F00C01D41B16F74600AB0D06 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F00C01D11B16F74600AB0D06 /* AppDelegate.m */; };
 		F00C01D51B16F74600AB0D06 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F00C01D21B16F74600AB0D06 /* Info.plist */; };
 		F00C01D61B16F74600AB0D06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F00C01D31B16F74600AB0D06 /* main.m */; };
-		F0D2AF8F1B1851C0002DC2E0 /* Tenby+EFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D2AF8E1B1851C0002DC2E0 /* Tenby+EFKit.m */; };
-		F0D2AF901B1851C0002DC2E0 /* Tenby+EFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D2AF8E1B1851C0002DC2E0 /* Tenby+EFKit.m */; };
-		F0D2AF921B1862B6002DC2E0 /* TenbyEFKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D2AF911B1862B6002DC2E0 /* TenbyEFKitTests.m */; };
+		F09DA2BF1B19C6FF00789492 /* import.csv in Resources */ = {isa = PBXBuildFile; fileRef = F09DA2BE1B19C6FF00789492 /* import.csv */; };
 		F0E432D01B1613550036DEB0 /* TenbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432CF1B1613550036DEB0 /* TenbyTests.m */; };
 		F0E432E51B1614800036DEB0 /* Tenby.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432E41B1614800036DEB0 /* Tenby.m */; };
 		F0E432E61B161ED10036DEB0 /* Tenby.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432E41B1614800036DEB0 /* Tenby.m */; };
@@ -33,9 +31,7 @@
 		F00C01D11B16F74600AB0D06 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Example/AppDelegate.m; sourceTree = "<group>"; };
 		F00C01D21B16F74600AB0D06 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Example/Info.plist; sourceTree = "<group>"; };
 		F00C01D31B16F74600AB0D06 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Example/main.m; sourceTree = "<group>"; };
-		F0D2AF8D1B1851C0002DC2E0 /* Tenby+EFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Tenby+EFKit.h"; path = "Tenby/Tenby+EFKit.h"; sourceTree = "<group>"; };
-		F0D2AF8E1B1851C0002DC2E0 /* Tenby+EFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Tenby+EFKit.m"; path = "Tenby/Tenby+EFKit.m"; sourceTree = "<group>"; };
-		F0D2AF911B1862B6002DC2E0 /* TenbyEFKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TenbyEFKitTests.m; sourceTree = "<group>"; };
+		F09DA2BE1B19C6FF00789492 /* import.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = import.csv; sourceTree = "<group>"; };
 		F0E432B01B1613550036DEB0 /* Tenby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tenby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0E432C91B1613550036DEB0 /* TenbyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TenbyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0E432CE1B1613550036DEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,8 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				F0E432CF1B1613550036DEB0 /* TenbyTests.m */,
-				F0D2AF911B1862B6002DC2E0 /* TenbyEFKitTests.m */,
 				F0E432CD1B1613550036DEB0 /* Supporting Files */,
+				F09DA2BE1B19C6FF00789492 /* import.csv */,
 			);
 			path = TenbyTests;
 			sourceTree = "<group>";
@@ -115,8 +111,6 @@
 			children = (
 				F0E432E31B1614800036DEB0 /* Tenby.h */,
 				F0E432E41B1614800036DEB0 /* Tenby.m */,
-				F0D2AF8D1B1851C0002DC2E0 /* Tenby+EFKit.h */,
-				F0D2AF8E1B1851C0002DC2E0 /* Tenby+EFKit.m */,
 			);
 			name = Tenby;
 			sourceTree = "<group>";
@@ -209,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F09DA2BF1B19C6FF00789492 /* import.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +214,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0D2AF8F1B1851C0002DC2E0 /* Tenby+EFKit.m in Sources */,
 				F00C01D41B16F74600AB0D06 /* AppDelegate.m in Sources */,
 				F00C01D61B16F74600AB0D06 /* main.m in Sources */,
 				F0E432E51B1614800036DEB0 /* Tenby.m in Sources */,
@@ -230,10 +224,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0D2AF921B1862B6002DC2E0 /* TenbyEFKitTests.m in Sources */,
 				F0E432E61B161ED10036DEB0 /* Tenby.m in Sources */,
 				F0E432D01B1613550036DEB0 /* TenbyTests.m in Sources */,
-				F0D2AF901B1851C0002DC2E0 /* Tenby+EFKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
