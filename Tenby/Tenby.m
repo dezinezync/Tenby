@@ -8,12 +8,6 @@
 
 #import "Tenby.h"
 
-@interface NSArray (Maps)
-
-- (NSArray *)dz_map:(id(^)(id obj, NSUInteger idx, NSArray *array))processor;
-
-@end
-
 @implementation NSArray (Maps)
 
 - (NSArray *)dz_map:(id (^)(id, NSUInteger, NSArray *))processor
@@ -38,19 +32,6 @@
     return [mapped copy];
     
 }
-
-@end
-
-@interface NSArray (Dosa)
-
-- (NSDictionary *)dz_flattenToDictionaryWithParentKey:(NSString *)parentKey;
-
-@end
-
-@interface NSDictionary (Dosa)
-
-- (NSDictionary *)dz_flatten;
-- (NSDictionary *)dz_flattenWithParent:(NSDictionary *)parent parentKey:(NSString *)parentKey;
 
 @end
 
@@ -164,11 +145,42 @@
     if(!delimiter) delimiter = @",";
     if(!eol) eol = @"\n";
     
-    NSArray *allRows = [csv componentsSeparatedByString:eol];
+    NSString *customDelimiter = @"^";
+    NSString *customEOL = @"#";
+    
+    NSString *expression = [NSString stringWithFormat:@"%@(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", delimiter];
+    
+    NSRegularExpression *regEx= [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    NSArray *matches = [regEx matchesInString:csv options:kNilOptions range:NSMakeRange(0, csv.length)];
+    
+    for(NSTextCheckingResult *result in matches)
+    {
+        
+        csv = [csv stringByReplacingCharactersInRange:result.range withString:customDelimiter];
+        
+    }
+    
+    expression = [NSString stringWithFormat:@"\"[^\"]+\"|(%@)", [@"\\" stringByAppendingString:eol]];
+    
+    regEx = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    matches = [regEx matchesInString:csv options:kNilOptions range:NSMakeRange(0, csv.length)];
+    
+    for(NSTextCheckingResult *result in matches)
+    {
+        NSRange range = [result rangeAtIndex:1];
+        if(range.location != NSNotFound)
+        {
+            csv = [csv stringByReplacingCharactersInRange:range withString:customEOL];
+        }
+    }
+    
+    NSArray *allRows = [csv componentsSeparatedByString:customEOL];
     
     if(![allRows count]) return nil;
     
-    NSOrderedSet *fieldItems = [NSOrderedSet orderedSetWithArray:[[allRows firstObject] componentsSeparatedByString:delimiter]];
+    NSOrderedSet *fieldItems = [NSOrderedSet orderedSetWithArray:[[allRows firstObject] componentsSeparatedByString:customDelimiter]];
     
     NSMutableArray *allRowsCopy = [allRows mutableCopy];
     [allRowsCopy removeObjectAtIndex:0];
@@ -176,7 +188,7 @@
     
     NSArray *rows = [allRows dz_map:^id(NSString *obj, NSUInteger idx, NSArray *array) {
        
-        NSArray *items = [obj componentsSeparatedByString:delimiter];
+        NSArray *items = [obj componentsSeparatedByString:customDelimiter];
         
         NSDictionary *newObj = [NSDictionary dictionaryWithObjects:items forKeys:fieldItems.array];
         
@@ -218,6 +230,15 @@
         fields = [(NSDictionary *)aObj allKeys];
         
         NSArray *values = [(NSDictionary *)aObj allValues];
+        
+        [values enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+           
+            if([obj isKindOfClass:[NSString class]] && [(NSString *)obj containsString:@","])
+            {
+                obj = [(NSString *)obj stringByReplacingOccurrencesOfString:@"," withString:@", "];
+            }
+            
+        }];
         
         CSV = [NSString stringWithFormat:@"%@%@%@", [fields componentsJoinedByString:delimiter], eol, [values componentsJoinedByString:delimiter]]; //last line does not get EOL char.
         
@@ -409,7 +430,7 @@
             }
             
             if((val && [val length]) &&
-               ([val containsString:@"\""] || [val containsString:@"\'"] || [val containsString:@","] || [val containsString:@"\n"]))
+               ([val containsString:@"\""] || [val containsString:@"\'"] || [val containsString:@","] || [val containsString:@"\n"] || [val containsString:@"\\"] || [val containsString:@"\\/"]))
             {
                 val = [NSString stringWithFormat:@"\"%@\"",val];
             }

@@ -8,6 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
+@interface NSArray (Maps)
+
+- (NSArray *)dz_map:(id(^)(id obj, NSUInteger idx, NSArray *array))processor;
+
+@end
+
+@interface NSArray (Dosa)
+
+- (NSDictionary *)dz_flattenToDictionaryWithParentKey:(NSString *)parentKey;
+
+@end
+
+@interface NSDictionary (Dosa)
+
+- (NSDictionary *)dz_flatten;
+- (NSDictionary *)dz_flattenWithParent:(NSDictionary *)parent parentKey:(NSString *)parentKey;
+
+@end
+
 /**
  *  Tenby is a JSON to CSV convertor and back. It boasts a very simple and straightforward API allowing you to deal directly with objects or files.
  *  @abstract All methods returning an NSURL* are paths to files inside the app's temporary directory. These files may be deleted by the OS at any time. It's your app's job to move these files to a favorable location.
