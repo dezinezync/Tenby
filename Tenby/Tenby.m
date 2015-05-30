@@ -316,6 +316,34 @@
     
 }
 
++ (NSArray *)JSONFromCSVFile:(NSURL *)file delimiter:(NSString *)delimiter endOfLine:(NSString *)eol
+{
+    
+    if(!file || ![[file path] length])
+    {
+        return nil;
+    }
+    
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[file path]])
+    {
+        return nil;
+    }
+    
+    NSError *error = nil;
+    NSString *CSV = [NSString stringWithContentsOfFile:[file path] encoding:NSUTF8StringEncoding error:&error];
+    
+    if(error || !CSV || ![CSV length])
+    {
+        if(error) NSLog(@"%@", error.localizedDescription);
+        return nil;
+    }
+    
+    NSArray *JSON = [[self class] JSONFromCSVString:CSV delimiter:delimiter endOfLine:eol];
+    
+    return JSON;
+    
+}
+
 #pragma mark - Helpers
 
 + (NSURL *)write:(id)obj isCSV:(BOOL)isCSV

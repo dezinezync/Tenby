@@ -92,6 +92,17 @@
 + (NSURL *)JSONFromCSV:(NSString *)csv delimiter:(NSString *)delimiter endOfLine:(NSString *)eol;
 
 /**
+ *  Load CSV from a file and parse it.
+ *
+ *  @param file      File URL in the system's file URL representation format.
+ *  @param delimiter The delimiter character to use. Pass nil to use the default character.
+ *  @param eol       The end of line character to use. Pass nil to use the default character.
+ *
+ *  @return NSArray* if parsing was successful, nil if not.
+ */
++ (NSArray *)JSONFromCSVFile:(NSURL *)file delimiter:(NSString *)delimiter endOfLine:(NSString *)eol;
+
+/**
  *  Generate a CSV String from a given JSON Object.
  *  @abstract This method uses the standard "," delimiter and the "\n" end of line character.
  *

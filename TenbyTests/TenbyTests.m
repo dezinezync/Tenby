@@ -171,4 +171,17 @@
     
 }
 
+- (void)testLoadingCSVFromFile
+{
+    
+    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"import" ofType:@"csv"];
+    
+    NSURL *URL = [NSURL URLWithString:path];
+    
+    NSArray *cars = [Tenby JSONFromCSVFile:URL delimiter:nil endOfLine:nil];
+    
+    XCTAssert([cars count] == 3);
+    
+}
+
 @end
