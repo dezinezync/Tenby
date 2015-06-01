@@ -471,7 +471,7 @@
             }
             
             if((val && [val length]) &&
-               ([val containsString:@"\""] || [val containsString:@"\'"] || [val containsString:@","] || [val containsString:@"\n"] || [val containsString:@"\\"] || [val containsString:@"\\/"]))
+               ([val containsString:@"\""] || [val containsString:@"\'"] || [val containsString:@","] || [val containsString:@"\n"] || [val containsString:@"\\"] || [val containsString:@"\\/"] || [val containsString:@"\r"] || [val containsString:@"\\n"]))
             {
                 val = [NSString stringWithFormat:@"\"%@\"",val];
             }
