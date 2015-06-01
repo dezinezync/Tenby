@@ -161,7 +161,14 @@
         
     }
     
-    expression = [NSString stringWithFormat:@"\"[^\"]+\"|(%@)", [@"\\" stringByAppendingString:eol]];
+    if([eol isEqualToString:@"\n"])
+    {
+        expression = [NSString stringWithFormat:@"\"[^\"]+\"|(%@)", @"\\n"];
+    }
+    else
+    {
+        expression = [NSString stringWithFormat:@"\"[^\"]+\"|(%@)", [@"\\" stringByAppendingString:eol]];
+    }
     
     regEx = [NSRegularExpression regularExpressionWithPattern:expression options:NSRegularExpressionCaseInsensitive error:nil];
     
@@ -189,6 +196,12 @@
     NSArray *rows = [allRows dz_map:^id(NSString *obj, NSUInteger idx, NSArray *array) {
        
         NSArray *items = [obj componentsSeparatedByString:customDelimiter];
+        
+        items = [items dz_map:^id(NSString *obj, NSUInteger idx, NSArray *array) {
+            
+            return [obj stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            
+        }];
         
         NSDictionary *newObj = [NSDictionary dictionaryWithObjects:items forKeys:fieldItems.array];
         
@@ -316,7 +329,7 @@
     
 }
 
-+ (NSArray *)JSONFromCSVFile:(NSURL *)file delimiter:(NSString *)delimiter endOfLine:(NSString *)eol
++ (NSArray *)JSONFromCSVFile:(NSURL *)file
 {
     
     if(!file || ![[file path] length])
@@ -338,7 +351,7 @@
         return nil;
     }
     
-    NSArray *JSON = [[self class] JSONFromCSVString:CSV delimiter:delimiter endOfLine:eol];
+    NSArray *JSON = [[self class] JSONFromCSVString:CSV delimiter:nil endOfLine:nil];
     
     return JSON;
     
