@@ -449,6 +449,12 @@
     
     NSMutableOrderedSet *rows = [NSMutableOrderedSet orderedSetWithCapacity:[arr count]];
     
+    NSString *extraneousCharacters = @",\\/\\,";
+    
+    NSMutableCharacterSet *set = [NSMutableCharacterSet newlineCharacterSet];
+    [set formUnionWithCharacterSet:[NSCharacterSet controlCharacterSet]];
+    [set formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:extraneousCharacters]];
+    
     // loop over all items and create a formatted row
     for(NSDictionary *obj in arr)
     {
@@ -470,13 +476,11 @@
                 val = [(NSNumber *)val stringValue];
             }
             
-            if((val && [val length]) &&
-               ([val containsString:@"\""] || [val containsString:@"\'"] || [val containsString:@","] || [val containsString:@"\n"] || [val containsString:@"\\"] || [val containsString:@"\\/"] || [val containsString:@"\r"] || [val containsString:@"\\n"]))
+            if([val rangeOfCharacterFromSet:set].location != NSNotFound)
             {
                 val = [NSString stringWithFormat:@"\"%@\"",val];
             }
             
-            // sometimes, a particular object may not have a key. We need to subtitute with a blank value.
             [row addObject:val];
             
         }
