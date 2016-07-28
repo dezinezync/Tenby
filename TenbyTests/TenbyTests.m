@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-#import "Tenby.h"
+#import <Tenby/Tenby.h>
 
 @interface TenbyTests : XCTestCase {
     
