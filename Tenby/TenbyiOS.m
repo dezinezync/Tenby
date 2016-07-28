@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Dezine Zync Studios LLP. All rights reserved.
 //
 
-#import "Tenby.h"
+#import "TenbyiOS.h"
 
 @implementation NSArray (Maps)
 

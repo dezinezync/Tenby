@@ -12,8 +12,11 @@
 		F00C01D61B16F74600AB0D06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F00C01D31B16F74600AB0D06 /* main.m */; };
 		F09DA2BF1B19C6FF00789492 /* import.csv in Resources */ = {isa = PBXBuildFile; fileRef = F09DA2BE1B19C6FF00789492 /* import.csv */; };
 		F0E432D01B1613550036DEB0 /* TenbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432CF1B1613550036DEB0 /* TenbyTests.m */; };
-		F0E432E51B1614800036DEB0 /* Tenby.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432E41B1614800036DEB0 /* Tenby.m */; };
-		F0E432E61B161ED10036DEB0 /* Tenby.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432E41B1614800036DEB0 /* Tenby.m */; };
+		F0E432E51B1614800036DEB0 /* TenbyiOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432E41B1614800036DEB0 /* TenbyiOS.m */; };
+		F0E432E61B161ED10036DEB0 /* TenbyiOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432E41B1614800036DEB0 /* TenbyiOS.m */; };
+		F0F958C31D4A603A00E1EDEF /* Tenby.h in Headers */ = {isa = PBXBuildFile; fileRef = F0F958C11D4A603A00E1EDEF /* Tenby.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F0F958C71D4A605600E1EDEF /* TenbyiOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F0E432E41B1614800036DEB0 /* TenbyiOS.m */; };
+		F0F958C81D4A60B700E1EDEF /* TenbyiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = F0E432E31B1614800036DEB0 /* TenbyiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,12 +35,15 @@
 		F00C01D21B16F74600AB0D06 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Example/Info.plist; sourceTree = "<group>"; };
 		F00C01D31B16F74600AB0D06 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Example/main.m; sourceTree = "<group>"; };
 		F09DA2BE1B19C6FF00789492 /* import.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = import.csv; sourceTree = "<group>"; };
-		F0E432B01B1613550036DEB0 /* Tenby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tenby.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0E432B01B1613550036DEB0 /* Tenby-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tenby-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0E432C91B1613550036DEB0 /* TenbyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TenbyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0E432CE1B1613550036DEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0E432CF1B1613550036DEB0 /* TenbyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TenbyTests.m; sourceTree = "<group>"; };
-		F0E432E31B1614800036DEB0 /* Tenby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tenby.h; path = Tenby/Tenby.h; sourceTree = "<group>"; };
-		F0E432E41B1614800036DEB0 /* Tenby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tenby.m; path = Tenby/Tenby.m; sourceTree = "<group>"; usesTabs = 0; };
+		F0E432E31B1614800036DEB0 /* TenbyiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TenbyiOS.h; path = Tenby/TenbyiOS.h; sourceTree = "<group>"; };
+		F0E432E41B1614800036DEB0 /* TenbyiOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TenbyiOS.m; path = Tenby/TenbyiOS.m; sourceTree = "<group>"; usesTabs = 0; };
+		F0F958BF1D4A603900E1EDEF /* Tenby.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tenby.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0F958C11D4A603A00E1EDEF /* Tenby.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tenby.h; sourceTree = "<group>"; };
+		F0F958C21D4A603A00E1EDEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +55,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F0E432C61B1613550036DEB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0F958BB1D4A603900E1EDEF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -75,6 +88,7 @@
 				F00C01D71B16F74A00AB0D06 /* App - Not used. */,
 				F0E432E21B16146A0036DEB0 /* Tenby */,
 				F0E432CC1B1613550036DEB0 /* TenbyTests */,
+				F0F958C01D4A603A00E1EDEF /* Tenby */,
 				F0E432B11B1613550036DEB0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,8 +96,9 @@
 		F0E432B11B1613550036DEB0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F0E432B01B1613550036DEB0 /* Tenby.app */,
+				F0E432B01B1613550036DEB0 /* Tenby-iOS.app */,
 				F0E432C91B1613550036DEB0 /* TenbyTests.xctest */,
+				F0F958BF1D4A603900E1EDEF /* Tenby.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,18 +124,39 @@
 		F0E432E21B16146A0036DEB0 /* Tenby */ = {
 			isa = PBXGroup;
 			children = (
-				F0E432E31B1614800036DEB0 /* Tenby.h */,
-				F0E432E41B1614800036DEB0 /* Tenby.m */,
+				F0E432E31B1614800036DEB0 /* TenbyiOS.h */,
+				F0E432E41B1614800036DEB0 /* TenbyiOS.m */,
 			);
 			name = Tenby;
 			sourceTree = "<group>";
 		};
+		F0F958C01D4A603A00E1EDEF /* Tenby */ = {
+			isa = PBXGroup;
+			children = (
+				F0F958C11D4A603A00E1EDEF /* Tenby.h */,
+				F0F958C21D4A603A00E1EDEF /* Info.plist */,
+			);
+			path = Tenby;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		F0F958BC1D4A603900E1EDEF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0F958C31D4A603A00E1EDEF /* Tenby.h in Headers */,
+				F0F958C81D4A60B700E1EDEF /* TenbyiOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		F0E432AF1B1613550036DEB0 /* Tenby */ = {
+		F0E432AF1B1613550036DEB0 /* Tenby-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F0E432D31B1613550036DEB0 /* Build configuration list for PBXNativeTarget "Tenby" */;
+			buildConfigurationList = F0E432D31B1613550036DEB0 /* Build configuration list for PBXNativeTarget "Tenby-iOS" */;
 			buildPhases = (
 				F0E432AC1B1613550036DEB0 /* Sources */,
 				F0E432AD1B1613550036DEB0 /* Frameworks */,
@@ -130,9 +166,9 @@
 			);
 			dependencies = (
 			);
-			name = Tenby;
+			name = "Tenby-iOS";
 			productName = Tenby;
-			productReference = F0E432B01B1613550036DEB0 /* Tenby.app */;
+			productReference = F0E432B01B1613550036DEB0 /* Tenby-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F0E432C81B1613550036DEB0 /* TenbyTests */ = {
@@ -153,6 +189,24 @@
 			productReference = F0E432C91B1613550036DEB0 /* TenbyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F0F958BE1D4A603900E1EDEF /* Tenby */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0F958C41D4A603A00E1EDEF /* Build configuration list for PBXNativeTarget "Tenby" */;
+			buildPhases = (
+				F0F958BA1D4A603900E1EDEF /* Sources */,
+				F0F958BB1D4A603900E1EDEF /* Frameworks */,
+				F0F958BC1D4A603900E1EDEF /* Headers */,
+				F0F958BD1D4A603900E1EDEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tenby;
+			productName = Tenby;
+			productReference = F0F958BF1D4A603900E1EDEF /* Tenby.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -167,6 +221,12 @@
 					};
 					F0E432C81B1613550036DEB0 = {
 						CreatedOnToolsVersion = 6.3;
+					};
+					F0F958BE1D4A603900E1EDEF = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 3TLN858B23;
+						DevelopmentTeamName = "Dezine Zync Studios LLP";
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -183,8 +243,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F0E432AF1B1613550036DEB0 /* Tenby */,
+				F0E432AF1B1613550036DEB0 /* Tenby-iOS */,
 				F0E432C81B1613550036DEB0 /* TenbyTests */,
+				F0F958BE1D4A603900E1EDEF /* Tenby */,
 			);
 		};
 /* End PBXProject section */
@@ -206,6 +267,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F0F958BD1D4A603900E1EDEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -215,7 +283,7 @@
 			files = (
 				F00C01D41B16F74600AB0D06 /* AppDelegate.m in Sources */,
 				F00C01D61B16F74600AB0D06 /* main.m in Sources */,
-				F0E432E51B1614800036DEB0 /* Tenby.m in Sources */,
+				F0E432E51B1614800036DEB0 /* TenbyiOS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,8 +291,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0E432E61B161ED10036DEB0 /* Tenby.m in Sources */,
+				F0E432E61B161ED10036DEB0 /* TenbyiOS.m in Sources */,
 				F0E432D01B1613550036DEB0 /* TenbyTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0F958BA1D4A603900E1EDEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0F958C71D4A605600E1EDEF /* TenbyiOS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +309,7 @@
 /* Begin PBXTargetDependency section */
 		F0E432CB1B1613550036DEB0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F0E432AF1B1613550036DEB0 /* Tenby */;
+			target = F0E432AF1B1613550036DEB0 /* Tenby-iOS */;
 			targetProxy = F0E432CA1B1613550036DEB0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -373,6 +449,54 @@
 			};
 			name = Release;
 		};
+		F0F958C51D4A603A00E1EDEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = Tenby/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dezinezync.Tenby;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F0F958C61D4A603A00E1EDEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Tenby/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dezinezync.Tenby;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -385,7 +509,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F0E432D31B1613550036DEB0 /* Build configuration list for PBXNativeTarget "Tenby" */ = {
+		F0E432D31B1613550036DEB0 /* Build configuration list for PBXNativeTarget "Tenby-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F0E432D41B1613550036DEB0 /* Debug */,
@@ -402,6 +526,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F0F958C41D4A603A00E1EDEF /* Build configuration list for PBXNativeTarget "Tenby" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0F958C51D4A603A00E1EDEF /* Debug */,
+				F0F958C61D4A603A00E1EDEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
