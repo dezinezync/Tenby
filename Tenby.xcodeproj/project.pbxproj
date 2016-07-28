@@ -167,7 +167,6 @@
 					};
 					F0E432C81B1613550036DEB0 = {
 						CreatedOnToolsVersion = 6.3;
-						TestTargetID = F0E432AF1B1613550036DEB0;
 					};
 				};
 			};
@@ -347,7 +346,6 @@
 		F0E432D71B1613550036DEB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -359,14 +357,12 @@
 				INFOPLIST_FILE = TenbyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tenby.app/Tenby";
 			};
 			name = Debug;
 		};
 		F0E432D81B1613550036DEB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -374,7 +370,6 @@
 				INFOPLIST_FILE = TenbyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tenby.app/Tenby";
 			};
 			name = Release;
 		};
